@@ -7,24 +7,130 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse) # for tribble function
+
+```
+### Coding warm up-- loop! 
+```{r}
+quarter_splits <- c(1.0, 1.1, 1.2, 1.1, 1.4, 1.5, 1.6, 1.4)
+for (i in seq_along(quarter_splits)){
+  consec <- quarter_splits[i] + quarter_splits[i + 1]
+}
 ```
 
-## R Markdown
+### Nested for loop examples 
+```{r}
+# COMPLETE EVERYTHING IN INNER FOR LOOP BEFORE MOVING ON TO NEXT I VALUE FOR OUTER LOOP
+# Example one: prints temp 1 through 5, ph 1 through 5, salinity 1 through 5. 
+file_prefix <- c("temp", "ph", "salinity")
+file_suffix <- c(1, 2, 3, 4, 5)
+for (i in seq_along(file_prefix)) {
+  for (j in seq_along(file_suffix)) {
+print(paste0(file_prefix[i], "_", file_suffix[j]))
+  }
+}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# Example two: 
+odds <- c(1, 3, 5)
+evens <- c(2, 4, 6, 8)
+for (i in seq_along(odds)) {
+  for (j in seq_along(evens)) {
+print(odds[i] * evens[j])
+  }
+}
 ```
 
-## Including Plots
+## Functions
+*You should consider writing a function whenever you've copied and pasted a block of code more than twice (you now have 3 copies of the same code!)* 
 
-You can also embed plots, for example:
+##### Benefits of writing functions
+* give a function an evocative name that makes your code easier to understand
+a. probably use verbs to name functions, unless its a very common noun like "mean" 
+* as requirements change, you only need to update code in one place, instead of many. 
+* you eliminate the chance of making incidental mistakes when you copy and paste (ie changing variable names) 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+##### Anatomy of a function 
+function_name <- function(arguments, arguments){
+body and outputs 
+}
+
+then to call / run the function... 
+function(argument = "YAY") 
+
+### Example 1: Make a function that doubles user input 
+```{r}
+double_this <- function(my_value){
+  print(2 * my_value)
+}
+
+double_this(my_value = 1234)
+
+double_this(c(1, 2, 10, 100, 175))
+
+```
+ 
+### Example 2: Write a function that asks for a user's name and age and returns an exclamation like "I'm NAME and I am AGE years old."
+
+```{r}
+say_hi <- function(name, age){
+  paste("Good morning! I'm", name, "and I am", age, "years old!")
+}
+say_hi(name = "Jillian", age = 22)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Example 3: animal ages with if else 
+```{r}
+convert_animal_age <- function(animal_species, human_age){
+  if (animal_species == "dog"){
+    print(human_age * 7)
+  } else if (animal_species == "goat"){ 
+    print(human_age * 4.7)
+  } else {
+    print("This animal input is not dog or goat!")
+  }
+}
+  
+convert_animal_age("goat", 47)
+
+convert_animal_age("monkey", 40) # returns nothing... for now! 
+## future jillian speaking: now it returns my very own error message 
+```
+
+### Example 4: Teddy's favorite foods, tribble() function, and making a function using data frame values!
+
+```{r}
+dogs_favorite_foods <- tribble(
+  ~dog_name, ~food, 
+  "Khora", "everything",
+  "Teddy", "salmon",
+  "Waffle", "pancakes",
+  "Banjo", "chicken"
+)
+
+dog_menu <- function(name) {
+  my_sub <- filter(dogs_favorite_foods, dog_name == name)
+  print(paste0("My name is ", my_sub$dog_name, " and I love ", my_sub$food, "!"))
+}
+
+dog_menu(name = "Waffle")
+
+```
+
+#### Example 5: Functions meet for loops (basically creating the apply function) -- print means of every column with a nice statement 
+
+```{r}
+means_over_columns <- function(df) {
+  for(i in seq_along(df)) {
+    col_mean <- mean(df[[i]], na.rm = TRUE)
+    column_name <- colnames(df[i])
+    print(paste("The mean value of", column_name, "is", col_mean))
+  }
+}
+
+# fun example with an actual fully numeric data frame ! 
+means_over_columns(df = mtcars)
+means_over_columns(df = faithful)
+```
+
