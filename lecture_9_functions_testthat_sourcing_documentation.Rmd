@@ -1,0 +1,35 @@
+---
+title: 'Lecture 9: Functions Continued'
+author: "Jillian Allison"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Unit testing: {testthat}
+Unit test: formal, automated, check to make sure a piece ("unit") of your code is behaving expectedly. 
+
+"Testing should be addictive, so you do it all the time"
+
+Built in functions with common tests that people run on their functions to make sure they're working properly
+
+* expect_equal(function, expected_value)
+
+does it return expected values
+
+* expect_type(function, expected_type) 
+
+does it return expected types
+
+* expect_length(function, expected_length)
+
+does it return the expected length of vector
+
+* expect_true(conditional statement about function ) 
+
+does the function return true? 
+
+
