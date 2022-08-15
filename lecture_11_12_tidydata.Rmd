@@ -1,0 +1,150 @@
+---
+title: 'Lecture 11 & 12: tidy data and {tidyr}, {dplyr}'
+author: "Jillian Allison"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+##### Warm up 
+
+```{r}
+animals <- c("brown bear","red bird","yellow duck","blue horse") 
+
+for (i in seq(from = 1, to = (length(animals) - 1))){
+  print(paste(animals[i], animals[i], "what do you see? I see a", animals[i + 1], "looking at me!"))
+}
+```
+
+## Lecture 11
+### Tidy data! 
+Tidy data is a predictable way of organizing data where : 
+
+1) each variable is a column. variable = characteristic being measured or described with data. 
+
+2) each observation is a row. observation = a single data point for one or more variables. 
+
+3) each cell contains a single value. value = recorded measure, count, or description of a variable.
+
+it's not R specific! it's just a way to organize data that will make life easier for people working with data. that's it! 
+
+Benefits: 
+
+1) makes collaboration easier 
+
+2) prevents people from "reinventing the wheel"
+
+3) reuse: reuse similar wrangling and analyses across different/updated datasets 
+
+4) generalizability: tools built for one tidy dataset are largely generalizable ^^ similar to 3
+
+
+### {tidyr} 
+
+- pivot_wider() and pivot_longer() 
+
+example:
+```{r}
+# PIVOT LONGER
+# tidyr::pivot_longer(week_1:week_3, 
+                   # names_to = week,
+                   # values_to = miles)
+#lengthening the week 1 through 3 columns, changing names of the columns to being values in a column called 'week', and putting those values within those previous columns into a column called miles
+
+# PIVOT WIDER
+# pivot_wider(names_from = variable column,
+#             values_from = value column) 
+```
+
+- separate() 
+
+separate elements in a single column into multiple columns, using a separator you specify 
+
+```{r}
+# separate(col = name,
+         # into = c("first_name","last_name"),
+         # sep = " ")
+```
+
+
+## Lecture 12 
+
+### Subsetting rows based on your conditions with filter() 
+
+Example 1: filter to only keep exact matches 
+```{r}
+ex_1 <- starwars %>%
+  filter(height > 180)
+```
+
+Example 2: Exact match
+```{r}
+ex_2 <- starwars %>% 
+  filter(eye_color == "blue")
+```
+
+Example 3: make a subset that only contains rows where the homeworld is Naboo
+```{r}
+ex_3 <- starwars %>% 
+  filter(homeworld == "Naboo")
+```
+
+Examples 4 and 5: Filtering to satisfy multiple conditions 
+
+```{r}
+ex_4 <- starwars %>% 
+  filter(homeworld == "Tatooine" & height > 180)
+```
+
+brown hair color & species is human
+```{r}
+ex_5 <- starwars %>% 
+  filter(hair_color == "brown" & species == "Human")
+```
+
+Example 6: Filtering OR statements 
+```{r}
+ex_6 <- starwars %>% 
+  filter(height > 180 | eye_color == "yellow")
+```
+
+homeworld == endor or species is droid
+```{r}
+ex_7 <- starwars %>% 
+  filter(homeworld == "Endor" | species == "Droid")
+```
+
+eye color is blue or red or brown 
+```{r}
+ex_8 <- starwars %>% 
+  filter(eye_color %in% c("blue","brown","red")) 
+
+## DONT USE == HERE! IT GOES THROUGH THE COLUMN ASKING FOR EXACT MATCHES FOR 1st row = [1] 2nd row = [2] 3rd = [3] 4th = [1] ... and so on. so we like %in% !
+```
+
+Example 11 bc I got off at some point 
+endor or tatooine or naboo AND 
+```{r}
+ex_11 <- starwars %>% 
+  filter(homeworld %in% c("Endor","Tatooine","Naboo"),
+         height > 150)
+```
+
+Examples with negate operator 
+
+keep all observations where speces =/= human
+```{r}
+ex_12 <- starwars %>% 
+  filter(species != "Human")
+
+ex_13 <- starwars %>% 
+  filter(!species %in% c("Human", "Ewok", "Wookie"))
+```
+
+### Subsetting columns with select() --- SEE END OF INTERACTIVE NOTES WEEK2DAY1 !!! 
+
+

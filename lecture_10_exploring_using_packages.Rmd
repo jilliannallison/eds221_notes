@@ -1,0 +1,57 @@
+---
+title: 'Lecture 10: finding, exploring, and using packages'
+author: "Jillian Allison"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+### Finding new packages
+
+-   CRAN task views can be used to find the packages we'd use for data exploration!
+-   but really google and twitter
+
+### Exploring and vetting packages
+
+-   there exists a useful checklist for choosing R packages
+-   cran projects are generally really good
+
+1)  maturity
+2)  active development
+3)  recently updated
+4)  documentation available (THEY BETTER HAVE IT! NECESSITY)
+5)  used/published in similar projects
+6)  license
+7)  semantics intuitive
+8)  functions that get the job done
+9)  arguments to support your needs
+10) dependencies reported / reasonable
+
+### Citing packages 
+-   we love citing other people's stuff! cite packages and openly available resources
+-   can add a citation for your own package in roxygen template! 
+
+```{r}
+citation("palmerpenguins")
+```
+
+##### some examples that are relevant to the activity 
+
+Coercing column classes 
+```{r}
+penguins_year_chr <- penguins %>% 
+  mutate(year = as.character(year))
+
+penguins_year_num <- penguins%>%
+  mutate(year = as.numeric(year))
+
+penguins_ad_ch <- penguins_year_num %>% 
+  filter(species %in% c("Adelie","Chinstrap"))
+```
+
