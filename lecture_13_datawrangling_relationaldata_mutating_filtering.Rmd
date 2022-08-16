@@ -1,0 +1,39 @@
+---
+title: "Lecture 13: Data Wrangling Continued- relational data, mutating and filtering
+  joints"
+author: "Jillian Allison"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Relational data 
+Multiple, related tables of data 
+
+Typically exist in relational database management systems and are queryed using SQL
+
+#### Joins
+- mutating joins: adds new variables to one data frame from matching observations in another
+- filtering joins: filter observations from one data frame based on whether or not they match an observation in the other table 
+- trying to find matches for a key- a variable that stores unique information that can be used to connect information across datasets 
+
+##### Full Join
+full_join(x , y) - everything from both data frames is retained, regardless of whether or not it has a match in the data frame it's being joined to -- if one of the key values doesn't match the other dataset, the remaining columns are filled with NA -- nothing is dropped. 
+
+##### Left join
+left_join(x , y) - everything in the first argument (left) table is retained. Only values in the second argument (right) table with a matching key are retained. 
+
+
+##### Inner join
+inner_join(x , y) - only keep data that has a key match in x and y -- anything that doesnt have a match, regardless of argument order, is dropped 
+
+##### Semi join (filtering dataframe)
+semi_join(x , y) - doesn't add column / merge tables but its more of a filtering join! we'll keep these rows in x based on whether or not it has a match that exists in y, but they aren't getting merged. 
+
+##### Anti join (filtering dataframe)
+anti_join(x , y) - only keeps values in x if they DONT have a match in y. 
+
+
