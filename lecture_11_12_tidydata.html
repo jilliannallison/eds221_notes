@@ -480,6 +480,94 @@ ex_13 &lt;- starwars %&gt;%
 <h3>Subsetting columns with select() — SEE END OF INTERACTIVE NOTES
 WEEK2DAY1 !!!</h3>
 </div>
+<div id="rename-also-in-week2day1" class="section level3">
+<h3>rename() also in week2day1</h3>
+</div>
+<div id="more-on-group_by-summarize-were-back-to-starwars-and-i-like-these-notes-better." class="section level3">
+<h3>more on group_by() %&gt;% summarize()!! we’re back to starwars and i
+like these notes better.</h3>
+</div>
+<div id="more-group_by-summarize-examples" class="section level3">
+<h3>more group_by() %&gt;% summarize() examples</h3>
+<p>group by: creates groups under the hood based on variables you
+specify</p>
+<p>summarize: apply your functions to each group, and return them in a
+nice summary table.</p>
+<pre class="r"><code>ex_27 &lt;- starwars %&gt;% 
+  filter(homeworld %in% c(&quot;Naboo&quot;,&quot;Tatooine&quot;)) %&gt;% 
+  group_by(species) %&gt;% 
+  summarize(mean_height = mean(height, na.rm = TRUE),
+            mean_mass = mean(mass, na.rm = TRUE))</code></pre>
+<p>uncount!! frequencies –&gt; tidydata :0 &gt;:) :-) (also…. count can
+make things into a frequency table)</p>
+<pre class="r"><code>df &lt;- tribble(
+  ~species, ~length, ~number, 
+  &quot;lobster&quot;, 12, 4, 
+  &quot;lobster&quot;, 14, 6,
+  &quot;lobster&quot;, 15, 2
+)
+
+df_case &lt;- df %&gt;% 
+  uncount(number)
+
+# count counts observations... its ONLY to take counts of obeservations. so we still like groupbysummarize
+# combination of group_by summarize n() 
+starwars %&gt;%
+  count(homeworld) # gives number of characters from each homeworld </code></pre>
+<pre><code>## # A tibble: 49 × 2
+##    homeworld          n
+##    &lt;chr&gt;          &lt;int&gt;
+##  1 Alderaan           3
+##  2 Aleen Minor        1
+##  3 Bespin             1
+##  4 Bestine IV         1
+##  5 Cato Neimoidia     1
+##  6 Cerea              1
+##  7 Champala           1
+##  8 Chandrila          1
+##  9 Concord Dawn       1
+## 10 Corellia           2
+## # … with 39 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<pre class="r"><code>starwars %&gt;% 
+  count(homeworld, species) # gives number of species on each planet </code></pre>
+<pre><code>## # A tibble: 58 × 3
+##    homeworld      species       n
+##    &lt;chr&gt;          &lt;chr&gt;     &lt;int&gt;
+##  1 Alderaan       Human         3
+##  2 Aleen Minor    Aleena        1
+##  3 Bespin         Human         1
+##  4 Bestine IV     Human         1
+##  5 Cato Neimoidia Neimodian     1
+##  6 Cerea          Cerean        1
+##  7 Champala       Chagrian      1
+##  8 Chandrila      Human         1
+##  9 Concord Dawn   Human         1
+## 10 Corellia       Human         2
+## # … with 48 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+<pre class="r"><code>starwars %&gt;% 
+  group_by(homeworld, species) %&gt;% 
+  summarize(size = n())</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;homeworld&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre><code>## # A tibble: 58 × 3
+## # Groups:   homeworld [49]
+##    homeworld      species    size
+##    &lt;chr&gt;          &lt;chr&gt;     &lt;int&gt;
+##  1 Alderaan       Human         3
+##  2 Aleen Minor    Aleena        1
+##  3 Bespin         Human         1
+##  4 Bestine IV     Human         1
+##  5 Cato Neimoidia Neimodian     1
+##  6 Cerea          Cerean        1
+##  7 Champala       Chagrian      1
+##  8 Chandrila      Human         1
+##  9 Concord Dawn   Human         1
+## 10 Corellia       Human         2
+## # … with 48 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
 </div>
 
 

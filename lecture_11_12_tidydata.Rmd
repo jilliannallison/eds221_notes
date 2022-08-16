@@ -147,4 +147,50 @@ ex_13 <- starwars %>%
 
 ### Subsetting columns with select() --- SEE END OF INTERACTIVE NOTES WEEK2DAY1 !!! 
 
+### rename() also in week2day1
+
+### more on group_by() %>% summarize()!! we're back to starwars and i like these notes better. 
+
+### more group_by() %>% summarize() examples 
+group by: creates groups under the hood based on variables you specify
+
+summarize: apply your functions to each group, and return them in a nice summary table. 
+
+```{r}
+
+ex_27 <- starwars %>% 
+  filter(homeworld %in% c("Naboo","Tatooine")) %>% 
+  group_by(species) %>% 
+  summarize(mean_height = mean(height, na.rm = TRUE),
+            mean_mass = mean(mass, na.rm = TRUE))
+```
+
+
+uncount!! frequencies --> tidydata :0 >:) :-) 
+(also.... count can make things into a frequency table)
+```{r}
+df <- tribble(
+  ~species, ~length, ~number, 
+  "lobster", 12, 4, 
+  "lobster", 14, 6,
+  "lobster", 15, 2
+)
+
+df_case <- df %>% 
+  uncount(number)
+
+# count counts observations... its ONLY to take counts of obeservations. so we still like groupbysummarize
+# combination of group_by summarize n() 
+starwars %>%
+  count(homeworld) # gives number of characters from each homeworld 
+
+starwars %>% 
+  count(homeworld, species) # gives number of species on each planet 
+
+starwars %>% 
+  group_by(homeworld, species) %>% 
+  summarize(size = n())
+
+```
+
 
