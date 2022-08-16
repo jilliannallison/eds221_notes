@@ -1,6 +1,6 @@
 ---
-title: "Lecture 13: Data Wrangling Continued- relational data, mutating and filtering
-  joints"
+title: "Lecture 13 & 14: Data Wrangling Continued- relational data, mutating and filtering
+  joints & Dates/Times, Strings "
 author: "Jillian Allison"
 date: "`r Sys.Date()`"
 output: html_document
@@ -9,7 +9,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+## Lecture 13: Data wrangling continued 
 ### Relational data 
 Multiple, related tables of data 
 
@@ -35,5 +35,58 @@ semi_join(x , y) - doesn't add column / merge tables but its more of a filtering
 
 ##### Anti join (filtering dataframe)
 anti_join(x , y) - only keeps values in x if they DONT have a match in y. 
+
+
+## Lecture 14: Dates and string wrangling 
+
+### Dates 
+- ISO 8601 
+
+avoid misinterpretation
+
+YYYY-MM-DD 
+
+YYYY-MM 
+
+YYYY
+
+YYYY-MM-DDThh:mm:ss+-TZD time zone designator 
+
+time zone designator: indicates how far ahead / behind a time zone is from the UTC time zone 
+
+Example: 
+
+February 18, 1996 at 8:34 PM in Santa Barbara (7 hours behind UTC) 
+
+1996-02-18T20:34-07:00 
+
+12/5/2002 at 2:41 am in Santa Barbara
+
+2002-12-05T02:41-07:00 
+
+#### {lubridate} 
+a package that helps R and us get our dates right! 
+
+ymd / dmy / mdy 
+
+
+
+### Wrangling strings  (while avoiding regular expression)
+
+regular expressions = patterns used to match character combinations in strings 
+
+expect some regex in upcoming MEDS courses-- it'll be okay lol despite how it looks
+
+stringr makes it so we don't have to write regex all the time because it's annoying 
+
+str_detect(): is the pattern detected? (TRUE OR FALSE)
+
+str_replace(): replace a string pattern with something else 
+
+these are often used in combination with other functions 
+
+
+
+
 
 
