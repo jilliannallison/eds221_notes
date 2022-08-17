@@ -1,0 +1,54 @@
+---
+title: "The (layered) grammar of graphics & 
+data viz considerations"
+author: "Jillian Allison"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Graph components: 
+
+- title
+- subtitle 
+- legend
+- axis labels 
+- points (geometric object) 
+- plot panel
+- background panel
+- major gridlines
+- minor gridlines 
+
+### Layers:
+
+##### first
+
+- data
+- aesthetics
+- geometric objects
+
+##### then
+
+- facets
+- statistical transformations
+- coordinates
+- theme 
+
+### Ask: (do first three before four!)
+- is it correct
+
+observations and experimental design --- avoid data wrangling and calculation mistakes 
+
+- is it useful? for who?
+
+accessibility! context! don't overwhelm people! 
+
+- does it communicate data responsibly?
+
+- does it look awesome? 
+
+### Lecture 16: responsible data 
+for each element: is this element necessary for audience understanding? is this the best way to encourage audience understanding? 
